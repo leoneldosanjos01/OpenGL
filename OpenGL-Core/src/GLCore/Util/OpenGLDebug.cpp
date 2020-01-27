@@ -12,9 +12,10 @@ namespace GLCore::Utils {
 
 	void OpenGLLogMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 	{
+		//TODO: Re-do the log severity
 		switch (severity)
 		{
-		case GL_DEBUG_SEVERITY_HIGH:
+		case 0:
 			if ((int)s_DebugLogLevel > 0)
 			{
 				LOG_ERROR("[OpenGL Debug HIGH] {0}", message);
@@ -22,26 +23,27 @@ namespace GLCore::Utils {
 					GLCORE_ASSERT(false, "GL_DEBUG_SEVERITY_HIGH");
 			}
 			break;
-		case GL_DEBUG_SEVERITY_MEDIUM:
+		case 1:
 			if ((int)s_DebugLogLevel > 2)
 				LOG_WARN("[OpenGL Debug MEDIUM] {0}", message);
 			break;
-		case GL_DEBUG_SEVERITY_LOW:
+		case 2:
 			if ((int)s_DebugLogLevel > 3)
 				LOG_INFO("[OpenGL Debug LOW] {0}", message);
 			break;
-		case GL_DEBUG_SEVERITY_NOTIFICATION:
+		case 3:
 			if ((int)s_DebugLogLevel > 4)
 				LOG_TRACE("[OpenGL Debug NOTIFICATION] {0}", message);
 			break;
 		}
 	}
 
+	// TODO: Re-do this line
 	void EnableGLDebugging()
 	{
-		glDebugMessageCallback(OpenGLLogMessage, nullptr);
-		glEnable(GL_DEBUG_OUTPUT);
-		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+		// glDebugMessageCallback(OpenGLLogMessage, nullptr);
+		// glEnable(GL_DEBUG_OUTPUT);
+		// glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 	}
 
 }
